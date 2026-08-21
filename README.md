@@ -13,6 +13,20 @@
 
 OmniCast gives [OmniWM](https://github.com/BarutSRB/OmniWM) a searchable Raycast command palette and a focused set of first-class commands. It talks directly to OmniWM through `omniwmctl`; Raycast's own Window Management engine is not involved.
 
+<p align="center">
+  <a href="https://youtu.be/o-LTRq1FxyI">
+    <img src="media/omnicast-workflow.png" width="100%" alt="OmniCast controlling an OmniWM workspace through Raycast">
+  </a>
+  <br>
+  <em>OmniCast in a real OmniWM workspace. Select the image to watch the walkthrough.</em>
+</p>
+
+## Why I built this
+
+I wanted OmniWM to own my window layout completely, while keeping Raycast's fast, searchable way of running commands. OmniCast connects the two: common layout actions appear by clear English names and short aliases, without Raycast's Window Management engine competing with OmniWM.
+
+The [macOS workflow walkthrough](https://youtu.be/o-LTRq1FxyI) shows OmniCast in daily use: resizing tiles, moving through an OmniWM workspace, and keeping an Android device alongside the development environment.
+
 ## Highlights
 
 - Search OmniWM actions using readable names such as “move column right”, “focus workspace 4”, or “balance window sizes”.
