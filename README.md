@@ -24,6 +24,12 @@ OmniCast gives [OmniWM](https://github.com/BarutSRB/OmniWM) a searchable Raycast
 
 ## Main commands
 
+<p align="center">
+  <img src="media/raycast-commands.png" width="820" alt="OmniCast commands in Raycast root search">
+  <br>
+  <em>Keep common OmniWM layout commands directly in Raycast's root search.</em>
+</p>
+
 | Search | Command | Behaviour |
 | --- | --- | --- |
 | `m` | Maximize | Toggle the focused tiled column across the available width |
@@ -37,6 +43,12 @@ OmniCast gives [OmniWM](https://github.com/BarutSRB/OmniWM) a searchable Raycast
 | `w1` through `w5` | Workspace 1 through 5 | Switch directly to an OmniWM workspace |
 
 Open **OmniWM Commands** for the extended palette: navigation, workspaces, column and window movement, resizing, layouts, displays, scratchpad actions, and utilities.
+
+<p align="center">
+  <img src="media/command-palette.png" width="820" alt="Searching OmniWM commands in English through OmniCast">
+  <br>
+  <em>Search the extended OmniWM command palette using plain English.</em>
+</p>
 
 ## Requirements
 
