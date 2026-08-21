@@ -39,9 +39,16 @@ async function windowSnapshots(): Promise<FocusedWindowSnapshot[]> {
   return response.result?.payload?.windows ?? [];
 }
 
-async function focusedWindowSnapshot(): Promise<FocusedWindowSnapshot | undefined> {
+async function focusedWindowSnapshot(): Promise<
+  FocusedWindowSnapshot | undefined
+> {
   for (let attempt = 0; attempt < 5; attempt += 1) {
-    const focusedOutput = await execute(["query", "focused-window", "--format", "json"]);
+    const focusedOutput = await execute([
+      "query",
+      "focused-window",
+      "--format",
+      "json",
+    ]);
     const focusedResponse = JSON.parse(focusedOutput) as {
       result?: { payload?: { window?: FocusedWindowSnapshot } };
     };
@@ -58,9 +65,12 @@ async function focusedWindowSnapshot(): Promise<FocusedWindowSnapshot | undefine
       "json",
     ]);
     const workspaceResponse = JSON.parse(workspaceOutput) as {
-      result?: { payload?: { workspaces?: Array<{ focusedWindowId?: string }> } };
+      result?: {
+        payload?: { workspaces?: Array<{ focusedWindowId?: string }> };
+      };
     };
-    const workspaceFocusedId = workspaceResponse.result?.payload?.workspaces?.[0]?.focusedWindowId;
+    const workspaceFocusedId =
+      workspaceResponse.result?.payload?.workspaces?.[0]?.focusedWindowId;
     const focusedId = focused?.id ?? workspaceFocusedId;
 
     if (focusedId) {
@@ -95,13 +105,14 @@ async function ensureFocusedWindowIsStandalone() {
 
   const tolerance = 2;
   const focusedFrame = focused.frame;
-  const sharesColumn = (await windowSnapshots()).some((window) =>
-    window.id !== focused.id &&
-    window.mode === "tiling" &&
-    window.workspace?.id === focused.workspace?.id &&
-    window.frame !== undefined &&
-    Math.abs(window.frame.x - focusedFrame.x) <= tolerance &&
-    Math.abs(window.frame.width - focusedFrame.width) <= tolerance
+  const sharesColumn = (await windowSnapshots()).some(
+    (window) =>
+      window.id !== focused.id &&
+      window.mode === "tiling" &&
+      window.workspace?.id === focused.workspace?.id &&
+      window.frame !== undefined &&
+      Math.abs(window.frame.x - focusedFrame.x) <= tolerance &&
+      Math.abs(window.frame.width - focusedFrame.width) <= tolerance,
   );
 
   if (sharesColumn) await execute(["command", "move", "right"]);
@@ -136,6 +147,9 @@ export async function runTiledOmniWM(title: string, steps: string[][]) {
   await run(title, steps, true, false);
 }
 
-export async function runStandaloneTiledOmniWM(title: string, steps: string[][]) {
+export async function runStandaloneTiledOmniWM(
+  title: string,
+  steps: string[][],
+) {
   await run(title, steps, true, true);
 }
