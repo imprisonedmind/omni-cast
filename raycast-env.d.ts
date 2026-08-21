@@ -54,6 +54,7 @@ declare namespace Preferences {
   /** Preferences accessible in the `workspace-5` command */
   export type Workspace5 = ExtensionPreferences & {}
 }
+
 declare namespace Arguments {
   /** Arguments passed to the `commands` command */
   export type Commands = {}
@@ -96,3 +97,4 @@ declare namespace Arguments {
   /** Arguments passed to the `workspace-5` command */
   export type Workspace5 = {}
 }
+
