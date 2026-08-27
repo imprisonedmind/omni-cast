@@ -1,5 +1,10 @@
 # OmniCast Changelog
 
+## [IPC Error Guidance] - {PR_MERGE_DATE}
+
+- Explain how to recover when an OmniWM update resets and disables IPC.
+- Surface actionable OmniWM transport and protocol errors in the Raycast HUD.
+
 ## [Initial Release] - {PR_MERGE_DATE}
 
 - Search and run OmniWM commands from Raycast using plain English.

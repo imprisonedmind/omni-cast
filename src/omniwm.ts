@@ -6,12 +6,51 @@ const OMNIWMCTL = "/opt/homebrew/bin/omniwmctl";
 const delay = (milliseconds: number) =>
   new Promise<void>((resolve) => setTimeout(resolve, milliseconds));
 
+type OmniWMCLIError = {
+  code?: string;
+  message?: string;
+};
+
+function executionErrorMessage(
+  error: Error,
+  stdout: string,
+  stderr: string,
+): string {
+  const output = stdout.trim() || stderr.trim();
+
+  if (output) {
+    try {
+      const response = JSON.parse(output) as OmniWMCLIError;
+
+      if (response.code === "transport_failure") {
+        return "OmniWM IPC is unavailable. Start OmniWM and enable IPC in Settings";
+      }
+      if (response.code === "protocol_mismatch") {
+        return "OmniWM and omniwmctl versions do not match. Update them together";
+      }
+      if (response.message) return response.message;
+    } catch {
+      return output;
+    }
+  }
+
+  return error.message;
+}
+
 function execute(args: string[]): Promise<string> {
   return new Promise((resolve, reject) => {
-    execFile(OMNIWMCTL, args, { timeout: 5_000 }, (error, stdout) => {
-      if (error) reject(error);
-      else resolve(stdout);
-    });
+    execFile(
+      OMNIWMCTL,
+      args,
+      { timeout: 5_000 },
+      (error, stdout, stderr) => {
+        if (error) {
+          reject(new Error(executionErrorMessage(error, stdout, stderr)));
+          return;
+        }
+        resolve(stdout);
+      },
+    );
   });
 }
 
