@@ -1,5 +1,11 @@
 # OmniCast Changelog
 
+## [OmniWM 0.6.4 Compatibility] - {PR_MERGE_DATE}
+
+- Add commands for all ten numbered scratchpad slots.
+- Recognize plain-text protocol and transport failures from `omniwmctl` and
+  show actionable recovery guidance.
+
 ## [IPC Error Guidance] - {PR_MERGE_DATE}
 
 - Explain how to recover when an OmniWM update resets and disables IPC.

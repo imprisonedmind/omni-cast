@@ -109,10 +109,10 @@ Confirm that OmniWM is running, IPC is enabled, and this succeeds in Terminal:
 /opt/homebrew/bin/omniwmctl query focused-window --format json
 ```
 
-OmniWM 0.6.3 may replace an existing settings file with defaults during its
-schema upgrade, which disables IPC. Re-enable **IPC** in OmniWM Settings after
-upgrading. If your settings were reset, follow OmniWM's 0.6.3 recovery notes
-before restarting it.
+OmniWM updates can change the IPC protocol used by `omniwmctl`. Quit and reopen
+OmniWM after updating so the running app and bundled CLI use the same protocol.
+If the command still fails, re-enable **IPC** in OmniWM Settings and reinstall
+the CLI from OmniWM's status menu.
 
 ### A window remains floating
 

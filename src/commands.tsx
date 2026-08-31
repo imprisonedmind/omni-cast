@@ -787,22 +787,6 @@ const fixedCommands: CommandDefinition[] = [
     "raise-all-floating-windows",
   ),
   command(
-    "Assign Scratchpad Window",
-    "Assign the focused window to the scratchpad",
-    "Utilities",
-    "command",
-    "scratchpad",
-    "assign",
-  ),
-  command(
-    "Toggle Scratchpad",
-    "Show or hide the scratchpad window",
-    "Utilities",
-    "command",
-    "scratchpad",
-    "toggle",
-  ),
-  command(
     "Toggle Quake Terminal",
     "Show or hide OmniWM's quake terminal",
     "Utilities",
@@ -855,7 +839,35 @@ const numberedWorkspaceCommands: CommandDefinition[] = Array.from(
   ),
 ]);
 
-const commands = [...fixedCommands, ...numberedWorkspaceCommands];
+const numberedScratchpadCommands: CommandDefinition[] = Array.from(
+  { length: 10 },
+  (_, index) => index + 1,
+).flatMap((scratchpad) => [
+  command(
+    `Assign Scratchpad ${scratchpad}`,
+    `Assign the focused window to scratchpad slot ${scratchpad}`,
+    "Utilities",
+    "command",
+    "scratchpad",
+    "assign",
+    String(scratchpad),
+  ),
+  command(
+    `Toggle Scratchpad ${scratchpad}`,
+    `Show or hide the windows in scratchpad slot ${scratchpad}`,
+    "Utilities",
+    "command",
+    "scratchpad",
+    "toggle",
+    String(scratchpad),
+  ),
+]);
+
+const commands = [
+  ...fixedCommands,
+  ...numberedWorkspaceCommands,
+  ...numberedScratchpadCommands,
+];
 const categories: Category[] = [
   "Raycast Style",
   "Navigation",

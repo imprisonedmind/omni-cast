@@ -11,6 +11,19 @@ type OmniWMCLIError = {
   message?: string;
 };
 
+function actionableCLIError(output: string): string | undefined {
+  if (output.includes("protocol_mismatch")) {
+    return "Quit and reopen OmniWM to finish the update and match omniwmctl";
+  }
+  if (
+    output.includes("transport_failure") ||
+    output.includes("NSPOSIXErrorDomain Code=2")
+  ) {
+    return "OmniWM IPC is unavailable. Start OmniWM and enable IPC in Settings";
+  }
+  return undefined;
+}
+
 function executionErrorMessage(
   error: Error,
   stdout: string,
@@ -19,15 +32,12 @@ function executionErrorMessage(
   const output = stdout.trim() || stderr.trim();
 
   if (output) {
+    const actionableError = actionableCLIError(output);
+    if (actionableError) return actionableError;
+
     try {
       const response = JSON.parse(output) as OmniWMCLIError;
 
-      if (response.code === "transport_failure") {
-        return "OmniWM IPC is unavailable. Start OmniWM and enable IPC in Settings";
-      }
-      if (response.code === "protocol_mismatch") {
-        return "OmniWM and omniwmctl versions do not match. Update them together";
-      }
       if (response.message) return response.message;
     } catch {
       return output;
