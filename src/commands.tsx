@@ -1,5 +1,5 @@
 import { Action, ActionPanel, List } from "@raycast/api";
-import { runOmniWM } from "./omniwm";
+import { runOmniWM, runStandaloneTiledOmniWM } from "./omniwm";
 
 type Category =
   | "Raycast Style"
@@ -17,6 +17,7 @@ type CommandDefinition = {
   category: Category;
   steps: string[][];
   keywords?: string[];
+  run?: typeof runOmniWM;
 };
 
 const command = (
@@ -41,13 +42,16 @@ const fixedCommands: CommandDefinition[] = [
     "command",
     "toggle-container-full-primary-span",
   ),
-  sequence(
-    "Reset",
-    "Return the window to a neutral standalone tiled state",
-    "Raycast Style",
-    ["command", "set-container-primary-span", "50%"],
-    ["command", "reset-window-secondary-span"],
-  ),
+  {
+    ...sequence(
+      "Reset",
+      "Return the window to a neutral standalone tiled state",
+      "Raycast Style",
+      ["command", "set-container-primary-span", "50%"],
+      ["command", "reset-window-secondary-span"],
+    ),
+    run: runStandaloneTiledOmniWM,
+  },
   command(
     "Maximize Width",
     "Toggle full width for the focused column",
@@ -880,7 +884,7 @@ const categories: Category[] = [
 ];
 
 async function execute(item: CommandDefinition) {
-  await runOmniWM(item.title, item.steps);
+  await (item.run ?? runOmniWM)(item.title, item.steps);
 }
 
 export default function Commands() {

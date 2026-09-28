@@ -1,5 +1,11 @@
 # OmniCast Changelog
 
+## [Reset and Store Review Fixes] - {PR_MERGE_DATE}
+
+- Prepare floating and native-full-screen windows for tiling in both Reset commands.
+- Separate the focused window from a shared column before resetting its size.
+- Use the System category and correct the Move Up command title.
+
 ## [OmniWM 0.6.4 Compatibility] - {PR_MERGE_DATE}
 
 - Add commands for all ten numbered scratchpad slots.

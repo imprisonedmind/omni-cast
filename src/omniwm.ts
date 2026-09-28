@@ -49,18 +49,13 @@ function executionErrorMessage(
 
 function execute(args: string[]): Promise<string> {
   return new Promise((resolve, reject) => {
-    execFile(
-      OMNIWMCTL,
-      args,
-      { timeout: 5_000 },
-      (error, stdout, stderr) => {
-        if (error) {
-          reject(new Error(executionErrorMessage(error, stdout, stderr)));
-          return;
-        }
-        resolve(stdout);
-      },
-    );
+    execFile(OMNIWMCTL, args, { timeout: 5_000 }, (error, stdout, stderr) => {
+      if (error) {
+        reject(new Error(executionErrorMessage(error, stdout, stderr)));
+        return;
+      }
+      resolve(stdout);
+    });
   });
 }
 
